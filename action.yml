@@ -1,0 +1,23 @@
+# action.yml
+name: 'Retag ECR Image'
+description: 'Retag an existing docker image in ECR'
+inputs:
+  existing-tag:
+    description: 'The current tag ID'
+    required: true
+  new-tag:
+    description: 'The new tag ID to use'
+    required: true
+  repository-name:
+    description: 'The repository name in ECR where the docker image lives'
+    required: true
+outputs:
+  results:
+    description: 'The success or failure message for the image retagging'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.existing-tag }}
+    - ${{ inputs.new-tag }}
+    - ${{ inputs.repository-name }}
