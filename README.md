@@ -1,5 +1,5 @@
 # retag-ecr-image
-Retag an existing ECR image
+Retag an existing ECR image. This does not remove an existing tag, but adds a new tag to an existing docker image in ECR.
 
 Use this in conjunction with `aws-actions/configure-aws-credentials` and `aws-actions/amazon-ecr-login`. 
 
@@ -15,7 +15,8 @@ Use this in conjunction with `aws-actions/configure-aws-credentials` and `aws-ac
 **Required** The name of the repository where the existing image can be found.
 
 ## Outputs
-None
+### `result`
+This will either be "success" on completion or "failed" followed by an error message if there was an issue.
 
 ## Example usage
 ```
@@ -23,6 +24,7 @@ jobs:
   update-docker-image:
     steps:
       - name: Set AWS credentials
+        id: set_aws_creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.YOUR_AWS_ACCESS_KEY_ID }}

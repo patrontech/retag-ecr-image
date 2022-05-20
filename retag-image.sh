@@ -9,10 +9,11 @@ MANIFEST=$(aws ecr batch-get-image --repository-name=$REPO_NAME --image-ids imag
 
 # Confirm that the image was found
 if [ "$MANIFEST" = "null" ]; then
-    echo "The docker image tag $ORIGINAL_TAG could not be found in repository $REPO_NAME."
-    echo "Make sure that the repository and tag exist, and that the user has proper permissions."
+    echo "::set-output name=result::failed: The docker image tag $ORIGINAL_TAG could not be found in repository $REPO_NAME."
     exit 1
 fi
 
 # Push the new tag name
 aws ecr put-image --repository-name=$REPO_NAME --image-tag $NEW_TAG --image-manifest "$MANIFEST"
+# Set the result message to success
+echo "::set-output name=result::success"

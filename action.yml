@@ -1,4 +1,3 @@
-# action.yml
 name: 'Retag ECR Image'
 description: 'Retag an existing docker image in ECR'
 inputs:
